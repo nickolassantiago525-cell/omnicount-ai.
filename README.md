@@ -21,3 +21,11 @@
 - Data is stored in localStorage, which may be cleared; export CSV often. No server for inventory data or photo uploads in this prototype.
 - Unit conversions need validation against up-to-date printed inventory forms. For weight-based inventory we display pounds, not fictional numbers of patties. Packaging quantities are editable only in the source starter catalog (catalog.js) for now.
 - App is not yet deployed or tested on a physical iPhone.
+
+## v3 updates
+- Save & next item button for faster sheet counts.
+- Editable AI estimate with +/− buttons to correct generic detections before applying to EACH.
+- JSON backup/restore for local records; CSV export remains available.
+- Confirmation for saving zero quantities.
+- Versioned service-worker cache update.
+- Original offline AI limitations remain; product-specific recognition is not solved by this update.
