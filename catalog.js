@@ -51,8 +51,8 @@ Pouch - Mustard|Dry Storage|Case:8,Pouch:1
 Pouch - Ketchup Bulk|Dry Storage|Case:20,Pouch:1
 Pouch - Ketchup Fancy|Dry Storage|Case:4,Pouch:1
 Coffee - Ground Regular RAC|Dry Storage|Case:92,Packet:1
-Bun - Premium|Dry Storage|Tray:60,Bag:12,Each:1
-Bun - Regular|Dry Storage|Tray:72,Bag:12,Each:1
+Bun - Premium|Dry Storage|Tray:5,Bag:12,Each:1
+Bun - Regular|Dry Storage|Tray:6,Bag:12,Each:1
 Bun - Pretzel|Dry Storage|Case:96,Bag:12,Each:1
 Biscuit|Dry Storage|Case:144,Tray:24,Each:1
 Croissant Square Brk|Dry Storage|Case:180,Bag:6,Each:1
@@ -104,8 +104,8 @@ French Toast Sticks|Freezer|Case:306,Each:1
 Cookie Chocolate Chunk|Freezer|Case:107,Bag:26.75,Each:1
 Cookie Sugar|Freezer|Case:107,Bag:26.75,Each:1
 Cinnabon Icing|Freezer|Case:24,Pouch:1
-Bun - Premium|Freezer|Tray:60,Bag:12,Each:1
-Bun - Regular|Freezer|Tray:72,Bag:12,Each:1
+Bun - Premium|Freezer|Tray:5,Bag:12,Each:1
+Bun - Regular|Freezer|Tray:6,Bag:12,Each:1
 Bun - Pretzel|Freezer|Case:96,Bag:12,Each:1
 Biscuit|Freezer|Case:144,Tray:24,Each:1
 Croissant Square Brk|Freezer|Case:180,Bag:6,Each:1

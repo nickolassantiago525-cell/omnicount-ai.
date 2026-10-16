@@ -29,3 +29,12 @@
 - Confirmation for saving zero quantities.
 - Versioned service-worker cache update.
 - Original offline AI limitations remain; product-specific recognition is not solved by this update.
+
+
+## V4 bun counting
+- Regular buns: orange full tray 6, bag 12, each 1.
+- Premium buns: brown full tray 5, bag 12, each 1.
+- Freezer and Dry Storage remain distinct catalog items and are displayed separately in the bun totals panel.
+- For partial trays, enter their actual bun quantity as Each, not as a full Tray.
+- Totals sum saved records within the selected Daily or Weekly mode. Multiple saves of the same item are additive; delete mistaken entries.
+- Camera is still a generic COCO-SSD model, not a trained Wendy's tray detector. Offline AI may require a prior online load and iOS can evict caches.
