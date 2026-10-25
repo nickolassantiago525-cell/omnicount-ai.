@@ -1,4 +1,4 @@
-const VERSION = "omnicount-v5-rack-preview-2";
+const VERSION = "omnicount-v5-racks-20261025";
 const ASSETS = [
   "./",
   "./index.html",
