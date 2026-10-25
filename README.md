@@ -1,6 +1,48 @@
 # OmniCount AI — free prototype, iPhone Home Screen web app
 
+## V5 detection repair (preview, not yet published to GitHub Pages)
+
+The original fixed-class COCO detector remains available under **General objects**.
+It is no longer used as a stand-in for bread rack recognition.
+
+- **Bread racks** and **Bread trays** now use OWL-ViT open-vocabulary detection with explicit text queries. The model runs locally in a dedicated Web Worker; photos are not sent to a server. First setup downloads a large model from Hugging Face and the Transformers.js runtime from jsDelivr, and may not fit or run acceptably on older phones.
+- Rack/tray mode scans a selected photo or an explicit camera snapshot instead of pretending to provide fast live tracking.
+- Overlapping predictions for different descriptions of the same object are suppressed. Adjustable model-score filtering, numbered boxes, tap-to-exclude and tap-to-mark corrections support visual review. Scores are model outputs, not measured reliability.
+- Rack counts cannot be applied to inventory quantities. Tray estimates can only be applied to an item that supports Tray, after confirmation of the item and full-tray count. The model does not determine tray fullness or bun type.
+- Each new image or target clears stale estimates. Failed or superseded scans do not apply counts. General live mode retains freeze/resume and editable estimates.
+- Inventory conversions, the existing local-storage key and JSON backup compatibility are preserved. Saving in a browser that denies storage explicitly warns that data is only in memory.
+- The service worker caches the additional app files and only removes older OmniCount caches. Model caching is managed separately by Transformers.js, and must be tested on each device. Manual inventory remains usable without AI.
+
+### Verification and remaining limitations
+
+Run `node --test tests/*.test.cjs` for detection normalization and suppression tests.
+Browser integration checks cover photo review, inventory calculations, corrections,
+unit safety, backup/restore and model/network failures.
+
+Real WASM model inference was tested in desktop Chromium on one public product
+photo containing a metal bakery rack, a two-rack composite made from that same
+photo, and a negative astronaut photo. At the default rack model-score threshold of
+0.05, the results were 1 rack, 2 racks and 0 racks respectively. These are smoke
+tests, not a benchmark or proof of performance on the user's racks. Plastic
+stacked bread crates, busy storage rooms, occlusion, partial trays and physical
+iPhone performance remain unverified. No automatic color-to-bun-type mapping is
+claimed. Photos of the actual racks and trays are needed for representative testing.
+An orange plastic tray product photo returned one tray at the tray profile's
+default score threshold of 0.03; lowering the threshold increases false-positive risk.
+
+Model documentation and examples:
+[OWL-ViT model](https://huggingface.co/Xenova/owlvit-base-patch32) and
+[Transformers.js pipeline documentation](https://huggingface.co/docs/transformers.js/api/pipelines).
+The smoke-test product image came from
+[this bakery-rack product page](https://www.amazon.com/clp/B0CPBM7N5Z);
+the negative image came from the
+[Transformers.js documentation dataset](https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/astronaut.png).
+The tray smoke test used
+[this orange plastic bread tray product photo](https://eastppnw.com/products/food-grade-plastic-stackable-bakery-food-bread-crate-basket).
+Test photos are not bundled into the app.
+
 ## What's included
+
 - Daily/weekly inventory starter catalog transcribed from the supplied photos (not a complete or officially verified catalog).
 - Cooler, Dry Storage, Freezer and V-Supplies filters; sheet order or alphabetical selection.
 - Editable decimal quantities for cases, trays, bags, sleeves, packs, individual units, etc.; automatic conversion to appropriate BASE units (EACH only for items counted individually).
@@ -8,6 +50,7 @@
 - Experimental COCO-SSD on-device camera recognition, continuously re-counting current frame, freeze count, plus photo mode. COCO-SSD does **not reliably recognize specific Wendy's inventory products**. It's a demonstration, not a completed inventory AI.
 
 ## Free hosting on GitHub Pages
+
 1. Create a PUBLIC GitHub repository (public GitHub Pages hosting is free).
 2. Upload all contents of this folder into the repository root. Never upload work credentials or proprietary internal documents.
 3. Settings → Pages → Deploy from branch → main → /(root) → Save.
@@ -15,6 +58,7 @@
 5. With Wi-Fi, open the installed app once. For AI, tap **Prepare offline AI**, which downloads free TensorFlow.js libraries and model weights. Reload once if necessary so the service worker controls the page, tap Prepare again, then turn on Airplane Mode and test. Manual inventory works offline after web app assets are cached.
 
 ## Limitations and privacy
+
 - Requires HTTPS to access live camera (GitHub Pages provides HTTPS).
 - The AI model is generic and may fail to detect sauces, cartons, bags, stacked cases and bun trays, even when it detects boxes or people. Detection counts objects visible in the CURRENT frame, and does not track objects between frames. Camera counts must be verified and manually corrected.
 - External TensorFlow.js library/model downloads occur on the first AI setup; their caching in iOS Safari is not guaranteed, and iOS may evict cached files. Do not rely on live offline AI until tested on your device.
@@ -23,6 +67,7 @@
 - App is not yet deployed or tested on a physical iPhone.
 
 ## v3 updates
+
 - Save & next item button for faster sheet counts.
 - Editable AI estimate with +/− buttons to correct generic detections before applying to EACH.
 - JSON backup/restore for local records; CSV export remains available.
@@ -30,8 +75,8 @@
 - Versioned service-worker cache update.
 - Original offline AI limitations remain; product-specific recognition is not solved by this update.
 
-
 ## V4 bun counting
+
 - Regular buns: orange full tray 6, bag 12, each 1.
 - Premium buns: brown full tray 5, bag 12, each 1.
 - Freezer and Dry Storage remain distinct catalog items and are displayed separately in the bun totals panel.
