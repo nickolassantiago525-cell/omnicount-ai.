@@ -1,4 +1,4 @@
-const VERSION = "omnicount-v5-racks-20261025";
+const VERSION = "omnicount-v5-racks-20261025-2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -11,14 +11,27 @@ const ASSETS = [
   "./manifest.webmanifest",
   "./icon.png",
 ];
-self.addEventListener("install", (e) =>
+self.addEventListener("install", (e) => {
   e.waitUntil(
-    caches
-      .open(VERSION)
-      .then((c) => c.addAll(ASSETS))
-      .then(() => self.skipWaiting()),
-  ),
-);
+    (async () => {
+      const cache = await caches.open(VERSION);
+      await Promise.all(
+        ASSETS.map(async (asset) => {
+          const canonical = new URL(asset, self.registration.scope);
+          const fresh = new URL(canonical);
+          fresh.searchParams.set("__ocv", VERSION);
+          // Bypass both old browser HTTP entries and stale CDN variants. Store under
+          // the canonical URL so normal offline navigations and imports still match.
+          const response = await fetch(fresh.href, { cache: "reload" });
+          if (!response.ok)
+            throw Error(`Cannot cache ${asset}: ${response.status}`);
+          await cache.put(canonical.href, response);
+        }),
+      );
+      await self.skipWaiting();
+    })(),
+  );
+});
 self.addEventListener("activate", (e) =>
   e.waitUntil(
     caches
